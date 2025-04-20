@@ -1,0 +1,503 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #0f0f0f;
+  color: #fff;
+}
+
+/* Tela padrão */
+.screen {
+  display: none;
+  padding: 2rem;
+}
+
+.screen.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  padding: 0.8rem 1.5rem;
+  margin: 1rem 0.5rem;
+  background-color: #e50914;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+button:hover {
+  background-color: #b20710;
+}
+
+.horarios {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+
+.horario-btn {
+  background-color: #222;
+  border: 1px solid #444;
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.horario-btn.selected {
+  background-color: #e50914;
+  border-color: #b20710;
+}
+
+#avancarBtn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.seats-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 2rem auto;
+}
+
+.seat {
+  background-color: #444;
+  color: #fff;
+  text-align: center;
+  padding: 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.seat.occupied {
+  background-color: #888;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+.seat.selected {
+  background-color: #e50914;
+}
+
+.screen-label {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  color: #999;
+}
+
+.ingressos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 2rem auto;
+}
+
+.ingresso-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ingresso-row span {
+  font-weight: bold;
+}
+
+.ingresso-row select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+}
+
+.resumo-list {
+  margin: 1rem 0;
+  padding-left: 1rem;
+}
+
+.resumo-list li {
+  margin-bottom: 0.5rem;
+}
+
+.filmes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  margin: 2rem auto;
+  max-width: 1000px;
+  padding: 0 1rem;
+}
+
+.filme-card {
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+  color: white;
+}
+
+.filme-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+}
+
+.filme-card img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  display: block;
+}
+
+.filme-card h3 {
+  font-size: 1.2rem;
+  margin: 0.5rem 0 0;
+}
+
+.filme-card p {
+  font-size: 0.9rem;
+  margin: 0.5rem 0 1rem;
+  color: #ccc;
+}
+
+.screen h2 {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 2rem;
+  color: white;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.controls button {
+  padding: 0.7rem 1.4rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  background-color: #e50914;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.controls button:hover {
+  background-color: #b00610;
+}
+
+.grade-assentos {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 10px;
+  max-width: 400px;
+  margin: 2rem auto;
+}
+
+.assento {
+  width: 35px;
+  height: 35px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.assento.disponivel {
+  background-color: #444;
+}
+
+.assento.selecionado {
+  background-color: #2ecc71;
+}
+
+.assento.ocupado {
+  background-color: #e74c3c;
+  cursor: not-allowed;
+}
+
+.legenda {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.legenda span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #fff;
+}
+
+.grade-assentos {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.seats-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 40px);
+  gap: 10px;
+}
+
+.seat {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #ccc;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #000;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.seat.selecionado {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.seat.ocupado {
+  background-color: #e53935;
+  color: white;
+  cursor: not-allowed;
+}
+
+.assento {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  margin-right: 5px;
+}
+
+.assento.disponivel {
+  background-color: #ccc;
+}
+
+.assento.selecionado {
+  background-color: #4CAF50;
+}
+
+.assento.ocupado {
+  background-color: #e53935;
+}
+
+.screen-label {
+  width: 100%;
+  background-color: #fff;
+  font-size: 14px;
+  color: #000;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.imagem-filme {
+  margin-top: 20px;
+  max-width: 200px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.tipos-ingressos-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.ingresso-card {
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: 150px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+  background-color: #fff;
+  color: #000;
+}
+
+.ingresso-card:hover {
+  background-color: #fff;
+  color: #000;
+  border-color: #000;
+}
+
+.ingresso-card h3, .ingresso-card p {
+  margin: 0;
+}
+
+.confirmacao-container {
+  text-align: center;
+}
+
+.confirmacao-container img {
+  width: 200px;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.confirmar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 1.2rem;
+}
+
+.confirmar strong {
+  font-weight: bold;
+}
+
+.confirmar br {
+  margin-bottom: 4px;
+}
+
+.metodo-pagamento-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.metodo-pagamento-card {
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: 120px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.metodo-pagamento-card:hover {
+  background-color: #f5f5f5;
+  border-color: #333;
+}
+
+.form-container {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.form-container input {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 0.75rem 1.5rem;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.cartao {
+  display: flex;
+  flex-direction: column;
+}
+
+.metodo-pagamento-card.active {
+  border: 2px solid #3498db;
+  background-color: #ecf7ff;
+}
+
+/* Responsividade */
+
+@media screen and (max-width: 1024px) {
+  .filmes-grid {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  .screen {
+      padding: 1.5rem;
+  }
+
+  .ingressos-list,
+  .grade-assentos,
+  .ingresso-card {
+      max-width: 300px;
+  }
+
+  .horarios {
+      flex-direction: column;
+  }
+
+  .seats-grid {
+      grid-template-columns: repeat(4, 1fr);
+  }
+
+  .seat {
+      width: 30px;
+      height: 30px;
+  }
+
+  .legenda {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .controls {
+      flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  h1 {
+      font-size: 2rem;
+  }
+
+  .filmes-grid {
+      grid-template-columns: 1fr;
+      padding: 0;
+  }
+
+  .ingresso-row select {
+      font-size: 0.9rem;
+  }
+
+  .screen h2 {
+      font-size: 1.8rem;
+  }
+
+  button {
+      padding: 0.5rem 1rem;
+  }
+
+  .controls button {
+      padding: 0.5rem 1rem;
+  }
+}

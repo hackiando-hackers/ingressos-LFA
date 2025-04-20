@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Ingressos</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <!-- Tela de Escolha de Filme -->
+      <div class="screen active" id="filmes">
+        <h1>CineMatic</h1>
+        <h2>Selecione sua opção</h2>
+        <div class="filmes-grid">
+          <div class="filme-card" onclick="selecionarFilme('Duna 2')">
+            <img src="images\callas.png" alt="Duna 2" />
+            <h3>Maria Callas</h3>
+            <p>2025 ‧ Biografia</p>
+          </div>
+          <div class="filme-card" onclick="selecionarFilme('Superman')">
+            <img src="images/superman.jpg" alt="Superman" />
+            <h3>Superman</h3>
+            <p>2025 ‧ Ação/Ficção científica</p>
+          </div>
+          <div class="filme-card" onclick="selecionarFilme('Mickey 17')">
+            <img src="images\mickey_17.png" alt="Mickey 17" />
+            <h3>Mickey 17</h3>
+            <p>2025 ‧ Ficção científica/Aventura</p>
+          </div>
+          <div
+            class="filme-card"
+            onclick="selecionarFilme('Demon Slayer - Infinity Castle')"
+          >
+            <img
+              src="images\demon_slayer.jpg"
+              alt="Demon Slayer - Infinity Castle"
+            />
+            <h3>Demon Slayer - Infinity Castle</h3>
+            <p>2025 ‧ Ação/Anime</p>
+          </div>
+          <div class="filme-card" onclick="selecionarFilme('O Contador 2')">
+            <img src="images\contador.jpg" alt="O Contador 2" />
+            <h3>O Contador 2</h3>
+            <p>2025 ‧ Ação/Thriller</p>
+          </div>
+          <div class="filme-card" onclick="selecionarFilme('Lilo & Stitch')">
+            <img src="images\lilo_stitch.png" alt="Lilo & Stitch" />
+            <h3>Lilo & Stitch</h3>
+            <p>2025 ‧ Ficção científica/Comédia</p>
+          </div>
+          <div
+            class="filme-card"
+            onclick="selecionarFilme('Five Nights at Freddys 2')"
+          >
+            <img src="images\five.jpg" alt="Five Nights at Freddy's 2" />
+            <h3>Five Nights at Freddy's 2</h3>
+            <p>2025 ‧ Terror</p>
+          </div>
+          <div
+            class="filme-card"
+            onclick="selecionarFilme('Como treinar o seu dragão')"
+          >
+            <img src="images\dragao.jpg" alt="Como treinar o seu dragão" />
+            <h3>Como treinar o seu dragão</h3>
+            <p>2025 ‧ Ficção científica/Aventura</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tela de Escolha de Horário -->
+      <div class="screen" id="horarios">
+        <h2>Selecione o horário</h2>
+        <img
+          id="filmeImagem"
+          src=""
+          alt="Imagem do filme"
+          class="imagem-filme"
+        />
+        <p id="filmeEscolhido"></p>
+        <div class="horarios-grid">
+          <button onclick="selecionarHorario('14:00')">14:00</button>
+          <button onclick="selecionarHorario('16:30')">16:30</button>
+          <button onclick="selecionarHorario('19:00')">19:00</button>
+          <button onclick="selecionarHorario('21:30')">21:30</button>
+        </div>
+        <div class="controls">
+          <button onclick="voltarParaFilmes()">Voltar</button>
+        </div>
+      </div>
+
+      <!-- Tela de Seleção de Assentos -->
+      <div class="screen" id="assentos">
+        <h2>Selecione seus assentos</h2>
+        <img
+          id="filmeImagem"
+          src=""
+          alt="Imagem do filme"
+          class="imagem-filme"
+        />
+        <div class="legenda">
+          <span><span class="assento disponivel"></span> Disponível</span>
+          <span><span class="assento selecionado"></span> Selecionado</span>
+          <span><span class="assento ocupado"></span> Ocupado</span>
+        </div>
+        <div class="grade-assentos" id="gradeAssentos">
+          <!-- Os assentos serão gerados via JavaScript -->
+        </div>
+        <div class="controls">
+          <button onclick="goBack()">Voltar</button>
+          <button onclick="cancel()">Cancelar</button>
+          <button id="btnAvancarAssento" onclick="next()" disabled>
+            Avançar
+          </button>
+        </div>
+      </div>
+
+      <!-- Tela de Tipos de Ingressos -->
+      <div class="screen" id="tiposIngressos">
+        <h2>Selecione o tipo de ingresso</h2>
+        <p id="resumoFilmeHorarioAssentos"></p>
+
+        <div class="tipos-ingressos-container">
+          <div
+            class="ingresso-card"
+            onclick="selecionarTipoIngresso('Inteira', 20)"
+          >
+            <h3>Inteira</h3>
+            <p>R$ 20,00</p>
+          </div>
+          <div
+            class="ingresso-card"
+            onclick="selecionarTipoIngresso('Meia', 10)"
+          >
+            <h3>Meia</h3>
+            <p>R$ 10,00</p>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button onclick="goBack()">Voltar</button>
+          <button onclick="cancelar()">Cancelar</button>
+        </div>
+      </div>
+
+      <!-- Tela de Confirmação -->
+      <div class="screen" id="confirmacao">
+        <h2>Confirme sua seleção</h2>
+        <div class="confirmacao-container">
+          <ul id="resumoConfirmacao"></ul>
+        </div>
+        <div class="controls">
+          <button onclick="goBack()">Voltar</button>
+          <button onclick="cancelar()">Cancelar</button>
+          <button onclick="irParaPagamento()">Ir para Pagamento</button>
+        </div>
+      </div>
+
+      <!-- Tela de Pagamento -->
+      <div class="screen" id="pagamento">
+        <h2>Escolha seu método de pagamento</h2>
+
+        <div class="metodo-pagamento-container">
+          <div
+            class="metodo-pagamento-card"
+            onclick="selecionarPagamento('credito')"
+          >
+            <h3>Cartão de Crédito</h3>
+            <p>Pagamento via cartão de crédito</p>
+          </div>
+          <div
+            class="metodo-pagamento-card"
+            onclick="selecionarPagamento('debito')"
+          >
+            <h3>Cartão de Débito</h3>
+            <p>Pagamento via cartão de crédito</p>
+          </div>
+        </div>
+
+        <div id="formPagamento" class="form-container"></div>
+
+        <div class="controls">
+          <button onclick="goBack()">Voltar</button>
+          <button onclick="cancelar()">Cancelar</button>
+          <button onclick="finalizarPagamento()">Concluir Pagamento</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function selecionarFilme(nome) {
+        localStorage.setItem("filmeSelecionado", nome);
+        document.getElementById("filmeEscolhido").innerText = `${nome}`;
+
+        const imagem = imagensFilmes[nome];
+
+        const imgElement = document.getElementById("filmeImagem");
+        if (imgElement && imagem) {
+          imgElement.src = imagem;
+          imgElement.alt = nome;
+        }
+
+        if (imagem) {
+          localStorage.setItem("imagemFilme", imagem);
+        }
+
+        mostrarTela("horarios");
+      }
+
+      function selecionarPagamento(tipo) {
+        const formPagamento = document.getElementById("formPagamento");
+
+        // Remove active de todos os cards
+        document
+          .querySelectorAll(".metodo-pagamento-card")
+          .forEach((el) => el.classList.remove("active"));
+
+        // Adiciona active ao card clicado
+        const selectedCard = Array.from(
+          document.querySelectorAll(".metodo-pagamento-card")
+        ).find((el) => el.innerText.toLowerCase().includes(tipo));
+        if (selectedCard) {
+          selectedCard.classList.add("active");
+        }
+
+        if (tipo === "credito" || tipo === "debito") {
+          // Define o título conforme o tipo de pagamento
+          const pagamentoTitulo =
+            tipo === "credito" ? "Cartão de Crédito" : "Cartão de Débito";
+
+          // Gera o formulário de pagamento
+          formPagamento.innerHTML = `
+      <h3>${pagamentoTitulo}</h3>
+      <div class="cartao">
+        <input type="text" id="numeroCartao" placeholder="Número do Cartão" />
+        <input type="text" id="nomeCartao" placeholder="Nome no Cartão" />
+        <input type="text" id="validadeCartao" placeholder="Validade (MM/AA)" />
+        <input type="text" id="cvvCartao" placeholder="CVV" />
+      </div>
+    `;
+
+          // Função de máscara para o número do cartão
+          const numeroCartao = document.getElementById("numeroCartao");
+          numeroCartao.addEventListener("input", function () {
+            this.value = this.value
+              .replace(/\D/g, "") // Remove qualquer não-dígito
+              .replace(/(\d{4})(\d{1,4})/, "$1 $2")
+              .replace(/(\d{4})(\d{1,4})(\d{1,4})/, "$1 $2 $3")
+              .substring(0, 19); // Limita a 19 caracteres (formato: 1234 5678 1234 5678)
+          });
+
+          // Função de máscara para validade (MM/AA)
+          const validadeCartao = document.getElementById("validadeCartao");
+          validadeCartao.addEventListener("input", function () {
+            this.value = this.value
+              .replace(/\D/g, "") // Remove qualquer não-dígito
+              .replace(/(\d{2})(\d{1,2})/, "$1/$2")
+              .substring(0, 5); // Limita a 5 caracteres (MM/AA)
+          });
+
+          // Função de máscara para o CVV
+          const cvvCartao = document.getElementById("cvvCartao");
+          cvvCartao.addEventListener("input", function () {
+            this.value = this.value
+              .replace(/\D/g, "") // Remove qualquer não-dígito
+              .substring(0, 3); // Limita a 3 caracteres (CVV)
+          });
+        }
+      }
+
+      function finalizarPagamento() {
+        const metodo = document.querySelector(".metodo-pagamento-card.active");
+        if (metodo) {
+          alert("Por favor, selecione um método de pagamento.");
+          return;
+        }
+
+        alert("Compra finalizada com sucesso! 🎉");
+        localStorage.clear();
+        mostrarTela("filmes");
+      }
+
+      const imagensFilmes = {
+        "Duna 2": "images/callas.png",
+        Superman: "images/superman.jpg",
+        "Mickey 17": "images/mickey_17.png",
+        "Demon Slayer - Infinity Castle": "images/demon_slayer.jpg",
+        "Kung Fu Panda 4": "images/contador.jpg",
+        "Lilo & Stitch": "images/lilo_stitch.png",
+        "Five Nights at Freddys 2": "images/five.jpg",
+        "Como treinar o seu dragão": "images/dragao.jpg",
+      };
+
+      function carregarTelaAssentos() {
+        const selectedMovie = localStorage.getItem("filmeSelecionado");
+        const selectedHorario = localStorage.getItem("horarioSelecionado");
+        const occupiedSeats = ["A2", "A3", "B5", "C1"]; // Mock
+        const rows = ["A", "B", "C", "D", "E"];
+        const cols = [1, 2, 3, 4, 5, 6, 7, 8];
+        let selectedSeats = [];
+
+        const assentosDiv = document.createElement("div");
+        assentosDiv.className = "screen active";
+        assentosDiv.id = "assentos";
+
+        let gridHTML = `
+      <h2>Selecione seus assentos</h2>
+      <p><strong>${selectedMovie}</strong> - ${selectedHorario}</p>
+      <div class="legenda">
+        <span><span class="assento disponivel"></span> Disponível</span>
+        <span><span class="assento selecionado"></span> Selecionado</span>
+        <span><span class="assento ocupado"></span> Ocupado</span>
+      </div>
+      <div class="grade-assentos">
+        <div class="screen-label">TELA AQUI</div>
+        <div class="seats-grid">
+    `;
+
+        rows.forEach((row) => {
+          cols.forEach((col) => {
+            const seatId = `${row}${col}`;
+            const isOccupied = occupiedSeats.includes(seatId);
+            gridHTML += `
+          <div 
+            class="seat ${isOccupied ? "ocupado" : ""}" 
+            data-seat="${seatId}" 
+            ${isOccupied ? 'data-disabled="true"' : ""}
+          >${seatId}</div>
+        `;
+          });
+        });
+
+        gridHTML += `
+        </div>
+      </div>
+      <div class="controls">
+        <button onclick="cancelar()">Cancelar</button>
+        <button onclick="goBack()">Voltar</button>
+        <button id="btnAvancarAssento" disabled onclick="next()">Avançar</button>
+      </div>
+    `;
+
+        assentosDiv.innerHTML = gridHTML;
+        const existente = document.getElementById("assentos");
+        if (existente) {
+          existente.remove();
+        }
+
+        document.getElementById("app").appendChild(assentosDiv);
+
+        document.querySelectorAll(".seat:not(.ocupado)").forEach((seat) => {
+          seat.addEventListener("click", () => {
+            const seatId = seat.getAttribute("data-seat");
+            if (selectedSeats.includes(seatId)) {
+              selectedSeats = selectedSeats.filter((s) => s !== seatId);
+              seat.classList.remove("selecionado");
+            } else {
+              selectedSeats.push(seatId);
+              seat.classList.add("selecionado");
+            }
+
+            localStorage.setItem(
+              "assentosSelecionados",
+              JSON.stringify(selectedSeats)
+            );
+            document.getElementById("btnAvancarAssento").disabled =
+              selectedSeats.length === 0;
+          });
+        });
+      }
+
+      function selecionarHorario(horario) {
+        localStorage.setItem("horarioSelecionado", horario);
+        mostrarTela("assentos");
+      }
+
+      function voltarParaFilmes() {
+        mostrarTela("filmes");
+      }
+
+      function goBack() {
+        mostrarTela("horarios");
+      }
+
+      function cancelar() {
+        if (confirm("Deseja cancelar sua compra?")) {
+          localStorage.clear();
+          alert("Processo cancelado.");
+          mostrarTela("filmes");
+        }
+      }
+
+      function mostrarTela(id) {
+        document
+          .querySelectorAll(".screen")
+          .forEach((tela) => tela.classList.remove("active"));
+
+        if (id === "assentos") {
+          carregarTelaAssentos();
+        } else {
+          document.getElementById(id).classList.add("active");
+        }
+      }
+
+      function next() {
+        mostrarTela("tiposIngressos");
+
+        const filme = localStorage.getItem("filmeSelecionado");
+        const horario = localStorage.getItem("horarioSelecionado");
+        const assentos =
+          JSON.parse(localStorage.getItem("assentosSelecionados")) || [];
+
+        document.getElementById(
+          "resumoFilmeHorarioAssentos"
+        ).innerText = `Filme: ${filme} | Horário: ${horario} | Assentos: ${assentos.join(
+          ", "
+        )}`;
+      }
+
+      function selecionarTipoIngresso(tipo, valor) {
+        localStorage.setItem("tipoIngresso", tipo);
+        localStorage.setItem("valorIngresso", valor);
+        mostrarTela("confirmacao");
+        preencherConfirmacao();
+      }
+
+      function atualizarTotalIngressos() {
+        const qtdInteira =
+          parseInt(document.getElementById("inteira").value) || 0;
+        const qtdMeia = parseInt(document.getElementById("meia").value) || 0;
+        const totalSelecionado = qtdInteira + qtdMeia;
+
+        const assentosSelecionados =
+          JSON.parse(localStorage.getItem("assentosSelecionados")) || [];
+        const qtdAssentos = assentosSelecionados.length;
+
+        const aviso = document.getElementById("avisoQtdAssentos");
+        const botaoAvancar = document.getElementById("btnConfirmarIngressos");
+
+        if (totalSelecionado === qtdAssentos) {
+          aviso.innerText = "";
+          botaoAvancar.disabled = false;
+        } else {
+          aviso.innerText = `Você selecionou ${qtdAssentos} assentos, mas está escolhendo ${totalSelecionado} ingressos.`;
+          botaoAvancar.disabled = true;
+        }
+      }
+
+      function preencherConfirmacao() {
+        const filme = localStorage.getItem("filmeSelecionado");
+        const horario = localStorage.getItem("horarioSelecionado");
+        const assentos =
+          JSON.parse(localStorage.getItem("assentosSelecionados")) || [];
+        const tipoIngresso = localStorage.getItem("tipoIngresso");
+        const valorUnitario =
+          parseFloat(localStorage.getItem("valorIngresso")) || 0;
+        const imagem = localStorage.getItem("imagemFilme");
+
+        const quantidadeAssentos = assentos.length;
+        const valorTotal = valorUnitario * quantidadeAssentos;
+
+        const resumo = document.getElementById("resumoConfirmacao");
+        const imagemFilme = document.getElementById("filmeImagem");
+
+        if (imagem) {
+          imagemFilme.src = imagem;
+          imagemFilme.alt = "Imagem do filme " + filme;
+        } else {
+          imagemFilme.src = "caminho/para/imagem/default.jpg";
+          imagemFilme.alt = "Imagem padrão";
+        }
+
+        resumo.innerHTML = `
+    <div class="confirmar">
+        <strong>Filme:</strong> ${filme} <br>
+        <strong>Horário:</strong> ${horario} <br>
+        <strong>Assentos:</strong> ${assentos.join(", ")} <br>
+        <strong>Tipo de Ingresso:</strong> ${tipoIngresso} <br>
+        <strong>Valor:</strong> R$ ${valorTotal.toFixed(2).replace(".", ",")}
+    </div>
+  `;
+      }
+
+      function irParaPagamento() {
+        mostrarTela("pagamento");
+      }
+
+      function finalizarCompra() {
+        const inteira = parseInt(document.getElementById("inteira").value) || 0;
+        const meia = parseInt(document.getElementById("meia").value) || 0;
+
+        localStorage.setItem("ingressos", JSON.stringify({ inteira, meia }));
+
+        alert("Compra finalizada com sucesso! 🎉");
+        localStorage.clear();
+        mostrarTela("filmes");
+      }
+    </script>
+  </body>
+</html>
