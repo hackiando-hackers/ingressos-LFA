@@ -8,7 +8,8 @@
   </head>
   <body>
     <div id="app">
-      <!-- Tela de Escolha de Filme -->
+      <!-- (q0) Estado inicial: Tela de Escolha de Filme -->
+      <!-- (q0, 1) → q1: Seleciona um filme e vai para escolha de horário -->
       <div class="screen active" id="filmes">
         <h1>CineMatic</h1>
         <h2>Selecione sua opção</h2>
@@ -68,7 +69,9 @@
         </div>
       </div>
 
-      <!-- Tela de Escolha de Horário -->
+      <!-- (q1) Tela de Escolha de Horário -->
+      <!-- (q1, 2) → q2: Seleciona o horário e vai para seleção de assentos -->
+      <!-- (q1, 7) → q0: Botão "Voltar" retorna para seleção de filmes -->
       <div class="screen" id="horarios">
         <h2>Selecione o horário</h2>
         <img
@@ -89,7 +92,10 @@
         </div>
       </div>
 
-      <!-- Tela de Seleção de Assentos -->
+      <!-- (q2) Tela de Seleção de Assentos -->
+      <!-- (q2, 3) → q3: Avança para seleção de tipo de ingresso -->
+      <!-- (q2, 7) → q1: Voltar para horários -->
+      <!-- (q2, 8) → q0: Cancelar retorna à seleção de filmes -->
       <div class="screen" id="assentos">
         <h2>Selecione seus assentos</h2>
         <img
@@ -115,7 +121,10 @@
         </div>
       </div>
 
-      <!-- Tela de Tipos de Ingressos -->
+       <!-- (q3) Tela de Tipos de Ingressos -->
+      <!-- (q3, 4) → q4: Seleciona tipo de ingresso e vai para confirmação -->
+      <!-- (q3, 7) → q2: Voltar para seleção de assentos -->
+      <!-- (q3, 8) → q0: Cancelar retorna à seleção de filmes -->
       <div class="screen" id="tiposIngressos">
         <h2>Selecione o tipo de ingresso</h2>
         <p id="resumoFilmeHorarioAssentos"></p>
@@ -143,7 +152,10 @@
         </div>
       </div>
 
-      <!-- Tela de Confirmação -->
+      <!-- (q4) Tela de Confirmação -->
+      <!-- (q4, 5) → q5: Vai para tela de pagamento -->
+      <!-- (q4, 7) → q3: Voltar para tipos de ingressos -->
+      <!-- (q4, 8) → q0: Cancelar volta para seleção de filmes -->
       <div class="screen" id="confirmacao">
         <h2>Confirme sua seleção</h2>
         <div class="confirmacao-container">
@@ -155,8 +167,9 @@
           <button onclick="irParaPagamento()">Ir para Pagamento</button>
         </div>
       </div>
-
-      <!-- Tela de Pagamento -->
+      <!-- (q5) Tela de Pagamento -->
+      <!-- (q5, 6) → q0: Finaliza pagamento e retorna ao início -->
+      <!-- (q5, 8) → q0: Cancelar volta para seleção de filmes --><!-- Tela de Pagamento -->
       <div class="screen" id="pagamento">
         <h2>Escolha seu método de pagamento</h2>
 
@@ -210,12 +223,10 @@
       function selecionarPagamento(tipo) {
         const formPagamento = document.getElementById("formPagamento");
 
-        // Remove active de todos os cards
         document
           .querySelectorAll(".metodo-pagamento-card")
           .forEach((el) => el.classList.remove("active"));
 
-        // Adiciona active ao card clicado
         const selectedCard = Array.from(
           document.querySelectorAll(".metodo-pagamento-card")
         ).find((el) => el.innerText.toLowerCase().includes(tipo));
@@ -224,11 +235,9 @@
         }
 
         if (tipo === "credito" || tipo === "debito") {
-          // Define o título conforme o tipo de pagamento
           const pagamentoTitulo =
             tipo === "credito" ? "Cartão de Crédito" : "Cartão de Débito";
 
-          // Gera o formulário de pagamento
           formPagamento.innerHTML = `
       <h3>${pagamentoTitulo}</h3>
       <div class="cartao">
@@ -239,31 +248,28 @@
       </div>
     `;
 
-          // Função de máscara para o número do cartão
           const numeroCartao = document.getElementById("numeroCartao");
           numeroCartao.addEventListener("input", function () {
             this.value = this.value
               .replace(/\D/g, "") // Remove qualquer não-dígito
               .replace(/(\d{4})(\d{1,4})/, "$1 $2")
               .replace(/(\d{4})(\d{1,4})(\d{1,4})/, "$1 $2 $3")
-              .substring(0, 19); // Limita a 19 caracteres (formato: 1234 5678 1234 5678)
+              .substring(0, 19);
           });
 
-          // Função de máscara para validade (MM/AA)
           const validadeCartao = document.getElementById("validadeCartao");
           validadeCartao.addEventListener("input", function () {
             this.value = this.value
-              .replace(/\D/g, "") // Remove qualquer não-dígito
+              .replace(/\D/g, "")
               .replace(/(\d{2})(\d{1,2})/, "$1/$2")
-              .substring(0, 5); // Limita a 5 caracteres (MM/AA)
+              .substring(0, 5); 
           });
 
-          // Função de máscara para o CVV
           const cvvCartao = document.getElementById("cvvCartao");
           cvvCartao.addEventListener("input", function () {
             this.value = this.value
-              .replace(/\D/g, "") // Remove qualquer não-dígito
-              .substring(0, 3); // Limita a 3 caracteres (CVV)
+              .replace(/\D/g, "")
+              .substring(0, 3);
           });
         }
       }
